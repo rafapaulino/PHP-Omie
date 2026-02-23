@@ -18,5 +18,13 @@
         "illuminate/config": "^12.52",
         "illuminate/container": "^12.52",
         "illuminate/filesystem": "^12.52"
+    },
+    "require-dev": {
+        "pestphp/pest": "^4.4"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }
