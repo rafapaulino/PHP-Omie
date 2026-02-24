@@ -14,6 +14,8 @@ $config = ConfigSingleton::getInstance()->getConfig();
 use Rafael\Omiephpsdk\Clients\OmieClientService;
 
 $service = new OmieClientService();
-$response = $service->listClients();
+//$response = $service->listClients();
 
-//var_dump($response);
+$response = $service->getClient(11118162834);
+
+var_dump($response);
