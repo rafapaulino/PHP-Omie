@@ -90,6 +90,47 @@ Interfaces disponíveis:
 
 Isso permite implementar apenas o que sua classe realmente precisa.
 
+## Service de Clientes (`OmieClientService`)
+
+A implementação atual do serviço de clientes está em `src/Clients/OmieClientService.php`.
+
+Métodos já implementados:
+- `listClients(array $filters = []): array`
+- `getClient(int|string $clientId): array`
+
+Métodos ainda não implementados (lançam `RuntimeException`):
+- `createClient(array $payload): array`
+- `updateClient(int|string $clientId, array $payload): array`
+- `deleteClient(int|string $clientId): array`
+
+### Exemplo de uso
+
+```php
+<?php
+
+use Rafael\Omiephpsdk\Clients\OmieClientService;
+
+$service = new OmieClientService();
+
+// Lista clientes (call: ListarClientes)
+$clients = $service->listClients([
+    'pagina' => 1,
+    'registros_por_pagina' => 20,
+]);
+
+// Consulta um cliente por codigo_cliente_omie (call: ConsultarCliente)
+$client = $service->getClient(11118162834);
+```
+
+### Filtros do `listClients`
+
+Por padrão, o método envia:
+- `pagina = 1`
+- `registros_por_pagina = 50`
+- `apenas_importado_api = 'N'`
+
+Você pode sobrescrever esses valores passando o array `$filters`.
+
 ## Testes com Pest
 
 Os testes ficam na pasta `tests`.
