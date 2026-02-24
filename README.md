@@ -95,11 +95,11 @@ Isso permite implementar apenas o que sua classe realmente precisa.
 A implementação atual do serviço de clientes está em `src/Clients/OmieClientService.php`.
 
 Métodos já implementados:
+- `createClient(array $payload): array`
 - `listClients(array $filters = []): array`
 - `getClient(int|string $clientId): array`
 
 Métodos ainda não implementados (lançam `RuntimeException`):
-- `createClient(array $payload): array`
 - `updateClient(int|string $clientId, array $payload): array`
 - `deleteClient(int|string $clientId): array`
 
@@ -111,6 +111,15 @@ Métodos ainda não implementados (lançam `RuntimeException`):
 use Rafael\Omiephpsdk\Clients\OmieClientService;
 
 $service = new OmieClientService();
+
+// Cria cliente (call: IncluirCliente)
+$created = $service->createClient([
+    'codigo_cliente_integracao' => 'CodigoInterno0001',
+    'email' => 'primeiro@ccliente.com.br',
+    'razao_social' => 'Primeiro Cliente  Ltda Me',
+    'nome_fantasia' => 'Primeiro Cliente',
+    'cnpj_cpf' => '59872959048',
+]);
 
 // Lista clientes (call: ListarClientes)
 $clients = $service->listClients([

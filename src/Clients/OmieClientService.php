@@ -68,7 +68,33 @@ final class OmieClientService implements ClientServiceInterface
     /** @param array<string, mixed> $payload */
     public function createClient(array $payload): array
     {
-        throw new RuntimeException('Method createClient is not implemented yet.');
+        $appKey = (string) ($this->config['omie_key'] ?? '');
+        $appSecret = (string) ($this->config['omie_secret'] ?? '');
+
+        if ($appKey === '' || $appSecret === '') {
+            throw new RuntimeException('Missing Omie credentials in configuration.');
+        }
+
+        $requestPayload = [
+            'call' => 'IncluirCliente',
+            'param' => [$payload],
+            'app_key' => $appKey,
+            'app_secret' => $appSecret,
+        ];
+
+        $response = $this->httpClient->request('POST', 'geral/clientes/', [
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            'json' => $requestPayload,
+        ]);
+
+        $body = (string) $response->getBody();
+
+        /** @var array<string, mixed> $decoded */
+        $decoded = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+
+        return $decoded;
     }
 
     public function getClient(int|string $clientId): array

@@ -92,3 +92,68 @@ it('throws when Omie credentials are missing', function (): void {
 
     expect($call)->toThrow(RuntimeException::class, 'Missing Omie credentials in configuration.');
 });
+
+it('creates a client using IncluirCliente payload', function (): void {
+    $api = 'https://app.omie.com.br/api/v1/';
+    $key = 'test-app-key';
+    $secret = 'test-app-secret';
+
+    $_ENV['OMIE_API'] = $api;
+    $_ENV['APP_KEY'] = $key;
+    $_ENV['APP_SECRET'] = $secret;
+
+    putenv('OMIE_API=' . $api);
+    putenv('APP_KEY=' . $key);
+    putenv('APP_SECRET=' . $secret);
+
+    $clientPayload = [
+        'codigo_cliente_integracao' => 'CodigoInterno0001',
+        'email' => 'primeiro@ccliente.com.br',
+        'razao_social' => 'Primeiro Cliente  Ltda Me',
+        'nome_fantasia' => 'Primeiro Cliente',
+        'cnpj_cpf' => '59872959048',
+    ];
+
+    $responseBody = json_encode([
+        'codigo_cliente_omie' => 123456789,
+        'codigo_cliente_integracao' => 'CodigoInterno0001',
+    ], JSON_THROW_ON_ERROR);
+
+    $stream = $this->createMock(StreamInterface::class);
+    $stream->expects($this->once())
+        ->method('__toString')
+        ->willReturn($responseBody);
+
+    $response = $this->createMock(ResponseInterface::class);
+    $response->expects($this->once())
+        ->method('getBody')
+        ->willReturn($stream);
+
+    $httpClient = $this->createMock(ClientInterface::class);
+    $httpClient->expects($this->once())
+        ->method('request')
+        ->with(
+            'POST',
+            'geral/clientes/',
+            [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => [
+                    'call' => 'IncluirCliente',
+                    'param' => [$clientPayload],
+                    'app_key' => $key,
+                    'app_secret' => $secret,
+                ],
+            ]
+        )
+        ->willReturn($response);
+
+    $service = new OmieClientService($httpClient);
+
+    $result = $service->createClient($clientPayload);
+
+    expect($result)->toBeArray()
+        ->and($result['codigo_cliente_omie'])->toBe(123456789)
+        ->and($result['codigo_cliente_integracao'])->toBe('CodigoInterno0001');
+});
