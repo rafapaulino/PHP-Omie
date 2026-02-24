@@ -157,3 +157,73 @@ it('creates a client using IncluirCliente payload', function (): void {
         ->and($result['codigo_cliente_omie'])->toBe(123456789)
         ->and($result['codigo_cliente_integracao'])->toBe('CodigoInterno0001');
 });
+
+it('lists clients using ListarClientes payload with merged filters', function (): void {
+    $api = 'https://app.omie.com.br/api/v1/';
+    $key = 'test-app-key';
+    $secret = 'test-app-secret';
+
+    $_ENV['OMIE_API'] = $api;
+    $_ENV['APP_KEY'] = $key;
+    $_ENV['APP_SECRET'] = $secret;
+
+    putenv('OMIE_API=' . $api);
+    putenv('APP_KEY=' . $key);
+    putenv('APP_SECRET=' . $secret);
+
+    $filters = [
+        'pagina' => 3,
+        'registros_por_pagina' => 20,
+    ];
+
+    $responseBody = json_encode([
+        'pagina' => 3,
+        'total_de_paginas' => 1,
+        'clientes_cadastro' => [
+            ['codigo_cliente_omie' => 111, 'razao_social' => 'Cliente 1'],
+        ],
+    ], JSON_THROW_ON_ERROR);
+
+    $stream = $this->createMock(StreamInterface::class);
+    $stream->expects($this->once())
+        ->method('__toString')
+        ->willReturn($responseBody);
+
+    $response = $this->createMock(ResponseInterface::class);
+    $response->expects($this->once())
+        ->method('getBody')
+        ->willReturn($stream);
+
+    $httpClient = $this->createMock(ClientInterface::class);
+    $httpClient->expects($this->once())
+        ->method('request')
+        ->with(
+            'POST',
+            'geral/clientes/',
+            [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => [
+                    'call' => 'ListarClientes',
+                    'param' => [[
+                        'pagina' => 3,
+                        'registros_por_pagina' => 20,
+                        'apenas_importado_api' => 'N',
+                    ]],
+                    'app_key' => $key,
+                    'app_secret' => $secret,
+                ],
+            ]
+        )
+        ->willReturn($response);
+
+    $service = new OmieClientService($httpClient);
+
+    $result = $service->listClients($filters);
+
+    expect($result)->toBeArray()
+        ->and($result['pagina'])->toBe(3)
+        ->and($result['clientes_cadastro'])->toHaveCount(1)
+        ->and($result['clientes_cadastro'][0]['codigo_cliente_omie'])->toBe(111);
+});
