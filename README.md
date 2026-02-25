@@ -1,4 +1,7 @@
-﻿# omiephpsdk
+﻿# Biblioteca de Integração com a Omie
+
+A url para realizar os testes na api da Omie é essa:
+[https://app.omie.com.br/developer/](https://app.omie.com.br/developer/)
 
 Biblioteca PHP para facilitar integração com a API da Omie.
 
@@ -98,8 +101,6 @@ Métodos já implementados:
 - `createClient(array $payload): array`
 - `listClients(array $filters = []): array`
 - `getClient(int|string $clientId): array`
-
-Métodos ainda não implementados (lançam `RuntimeException`):
 - `updateClient(int|string $clientId, array $payload): array`
 - `deleteClient(int|string $clientId): array`
 
@@ -129,7 +130,21 @@ $clients = $service->listClients([
 
 // Consulta um cliente por codigo_cliente_omie (call: ConsultarCliente)
 $client = $service->getClient(11118162834);
+
+// Atualiza cliente (call: AlterarCliente)
+$updated = $service->updateClient('CodigoInterno0001', [
+    'codigo_cliente_integracao' => 'CodigoInterno0001',
+    'email' => 'primeiro@ccliente.com.br',
+    'razao_social' => 'Primeiro Cliente  Ninja Ltda Me',
+    'nome_fantasia' => 'Primeiro Cliente Ninja',
+]);
+
+// Exclui cliente (call: ExcluirCliente)
+$deleted = $service->deleteClient(11118162834);
 ```
+
+No `updateClient`, se o payload não incluir `codigo_cliente_omie` ou `codigo_cliente_integracao`,
+o método usa o valor de `$clientId` como `codigo_cliente_integracao`.
 
 ### Filtros do `listClients`
 
@@ -168,4 +183,3 @@ Próximos passos comuns:
 ## Licença
 
 MIT
-

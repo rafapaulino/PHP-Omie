@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use Rafael\Omiephpsdk\Clients\OmieClientService;
 use Rafael\Omiephpsdk\Config\ConfigSingleton;
-//use RuntimeException;
+
 
 beforeEach(function (): void {
     resetConfigSingleton();
@@ -226,4 +226,194 @@ it('lists clients using ListarClientes payload with merged filters', function ()
         ->and($result['pagina'])->toBe(3)
         ->and($result['clientes_cadastro'])->toHaveCount(1)
         ->and($result['clientes_cadastro'][0]['codigo_cliente_omie'])->toBe(111);
+});
+
+it('updates a client using AlterarCliente payload', function (): void {
+    $api = 'https://app.omie.com.br/api/v1/';
+    $key = 'test-app-key';
+    $secret = 'test-app-secret';
+
+    $_ENV['OMIE_API'] = $api;
+    $_ENV['APP_KEY'] = $key;
+    $_ENV['APP_SECRET'] = $secret;
+
+    putenv('OMIE_API=' . $api);
+    putenv('APP_KEY=' . $key);
+    putenv('APP_SECRET=' . $secret);
+
+    $clientPayload = [
+        'codigo_cliente_integracao' => 'CodigoInterno0001',
+        'email' => 'primeiro@ccliente.com.br',
+        'razao_social' => 'Primeiro Cliente  Ninja Ltda Me',
+        'nome_fantasia' => 'Primeiro Cliente Ninja',
+    ];
+
+    $responseBody = json_encode([
+        'codigo_cliente_omie' => 123456789,
+        'codigo_cliente_integracao' => 'CodigoInterno0001',
+        'descricao_status' => 'Cliente alterado com sucesso!',
+    ], JSON_THROW_ON_ERROR);
+
+    $stream = $this->createMock(StreamInterface::class);
+    $stream->expects($this->once())
+        ->method('__toString')
+        ->willReturn($responseBody);
+
+    $response = $this->createMock(ResponseInterface::class);
+    $response->expects($this->once())
+        ->method('getBody')
+        ->willReturn($stream);
+
+    $httpClient = $this->createMock(ClientInterface::class);
+    $httpClient->expects($this->once())
+        ->method('request')
+        ->with(
+            'POST',
+            'geral/clientes/',
+            [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => [
+                    'call' => 'AlterarCliente',
+                    'param' => [$clientPayload],
+                    'app_key' => $key,
+                    'app_secret' => $secret,
+                ],
+            ]
+        )
+        ->willReturn($response);
+
+    $service = new OmieClientService($httpClient);
+
+    $result = $service->updateClient('CodigoInterno0001', $clientPayload);
+
+    expect($result)->toBeArray()
+        ->and($result['codigo_cliente_integracao'])->toBe('CodigoInterno0001')
+        ->and($result['descricao_status'])->toBe('Cliente alterado com sucesso!');
+});
+
+it('fills codigo_cliente_integracao from clientId when missing on update payload', function (): void {
+    $api = 'https://app.omie.com.br/api/v1/';
+    $key = 'test-app-key';
+    $secret = 'test-app-secret';
+
+    $_ENV['OMIE_API'] = $api;
+    $_ENV['APP_KEY'] = $key;
+    $_ENV['APP_SECRET'] = $secret;
+
+    putenv('OMIE_API=' . $api);
+    putenv('APP_KEY=' . $key);
+    putenv('APP_SECRET=' . $secret);
+
+    $clientPayload = [
+        'email' => 'primeiro@ccliente.com.br',
+        'razao_social' => 'Primeiro Cliente  Ninja Ltda Me',
+        'nome_fantasia' => 'Primeiro Cliente Ninja',
+    ];
+
+    $responseBody = json_encode([
+        'codigo_cliente_integracao' => 'CodigoInterno0001',
+    ], JSON_THROW_ON_ERROR);
+
+    $stream = $this->createMock(StreamInterface::class);
+    $stream->expects($this->once())
+        ->method('__toString')
+        ->willReturn($responseBody);
+
+    $response = $this->createMock(ResponseInterface::class);
+    $response->expects($this->once())
+        ->method('getBody')
+        ->willReturn($stream);
+
+    $httpClient = $this->createMock(ClientInterface::class);
+    $httpClient->expects($this->once())
+        ->method('request')
+        ->with(
+            'POST',
+            'geral/clientes/',
+            [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => [
+                    'call' => 'AlterarCliente',
+                    'param' => [[
+                        'email' => 'primeiro@ccliente.com.br',
+                        'razao_social' => 'Primeiro Cliente  Ninja Ltda Me',
+                        'nome_fantasia' => 'Primeiro Cliente Ninja',
+                        'codigo_cliente_integracao' => 'CodigoInterno0001',
+                    ]],
+                    'app_key' => $key,
+                    'app_secret' => $secret,
+                ],
+            ]
+        )
+        ->willReturn($response);
+
+    $service = new OmieClientService($httpClient);
+
+    $result = $service->updateClient('CodigoInterno0001', $clientPayload);
+
+    expect($result)->toBeArray()
+        ->and($result['codigo_cliente_integracao'])->toBe('CodigoInterno0001');
+});
+
+it('deletes a client using ExcluirCliente payload', function (): void {
+    $api = 'https://app.omie.com.br/api/v1/';
+    $key = 'test-app-key';
+    $secret = 'test-app-secret';
+
+    $_ENV['OMIE_API'] = $api;
+    $_ENV['APP_KEY'] = $key;
+    $_ENV['APP_SECRET'] = $secret;
+
+    putenv('OMIE_API=' . $api);
+    putenv('APP_KEY=' . $key);
+    putenv('APP_SECRET=' . $secret);
+
+    $responseBody = json_encode([
+        'codigo_status' => '0',
+        'descricao_status' => 'Cliente excluido com sucesso!',
+    ], JSON_THROW_ON_ERROR);
+
+    $stream = $this->createMock(StreamInterface::class);
+    $stream->expects($this->once())
+        ->method('__toString')
+        ->willReturn($responseBody);
+
+    $response = $this->createMock(ResponseInterface::class);
+    $response->expects($this->once())
+        ->method('getBody')
+        ->willReturn($stream);
+
+    $httpClient = $this->createMock(ClientInterface::class);
+    $httpClient->expects($this->once())
+        ->method('request')
+        ->with(
+            'POST',
+            'geral/clientes/',
+            [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => [
+                    'call' => 'ExcluirCliente',
+                    'param' => [[
+                        'codigo_cliente_omie' => 11118162834,
+                    ]],
+                    'app_key' => $key,
+                    'app_secret' => $secret,
+                ],
+            ]
+        )
+        ->willReturn($response);
+
+    $service = new OmieClientService($httpClient);
+
+    $result = $service->deleteClient(11118162834);
+
+    expect($result)->toBeArray()
+        ->and($result['codigo_status'])->toBe('0')
+        ->and($result['descricao_status'])->toBe('Cliente excluido com sucesso!');
 });
