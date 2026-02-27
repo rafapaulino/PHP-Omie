@@ -105,6 +105,10 @@ Contratos de contas correntes:
 - `ListsCurrentAccountsInterface` (`listCurrentAccounts`)
 - `CurrentAccountServiceInterface` (agrega as interfaces de contas correntes)
 
+Contratos de CFOP:
+- `ListsCfopInterface` (`listCfop`)
+- `CfopServiceInterface` (agrega as interfaces de CFOP)
+
 ## Service de Clientes (`OmieClientService`)
 
 A implementação atual do serviço de clientes está em `src/Clients/OmieClientService.php`.
@@ -260,6 +264,37 @@ Por padrão, o método envia:
 - `pagina = 1`
 - `registros_por_pagina = 100`
 - `apenas_importado_api = 'N'`
+
+Você pode sobrescrever esses valores passando o array `$filters`.
+
+## Service de CFOP (`OmieCfopService`)
+
+A implementação atual do serviço de CFOP está em `src/CFOP/OmieCfopService.php`.
+
+Métodos já implementados:
+- `listCfop(array $filters = []): array`
+
+### Exemplo de uso
+
+```php
+<?php
+
+use Rafael\Omiephpsdk\CFOP\OmieCfopService;
+
+$service = new OmieCfopService();
+
+// Lista CFOP (call: ListarCFOP)
+$cfops = $service->listCfop([
+    'pagina' => 1,
+    'registros_por_pagina' => 50,
+]);
+```
+
+### Filtros do `listCfop`
+
+Por padrão, o método envia:
+- `pagina = 1`
+- `registros_por_pagina = 50`
 
 Você pode sobrescrever esses valores passando o array `$filters`.
 
