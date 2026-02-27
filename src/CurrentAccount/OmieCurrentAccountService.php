@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\Products;
+namespace Rafael\Omiephpsdk\CurrentAccount;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Rafael\Omiephpsdk\Config\ConfigSingleton;
-use Rafael\Omiephpsdk\Products\Contracts\ProductServiceInterface;
+use Rafael\Omiephpsdk\CurrentAccount\Contracts\CurrentAccountServiceInterface;
 use RuntimeException;
 
-final class OmieProductService implements ProductServiceInterface
+final class OmieCurrentAccountService implements CurrentAccountServiceInterface
 {
     private ClientInterface $httpClient;
 
@@ -28,7 +28,7 @@ final class OmieProductService implements ProductServiceInterface
     }
 
     /** @param array<string, mixed> $filters */
-    public function listProducts(array $filters = []): array
+    public function listCurrentAccounts(array $filters = []): array
     {
         $appKey = (string) ($this->config['omie_key'] ?? '');
         $appSecret = (string) ($this->config['omie_secret'] ?? '');
@@ -39,19 +39,18 @@ final class OmieProductService implements ProductServiceInterface
 
         $defaultFilters = [
             'pagina' => 1,
-            'registros_por_pagina' => 50,
+            'registros_por_pagina' => 100,
             'apenas_importado_api' => 'N',
-            'filtrar_apenas_omiepdv' => 'N',
         ];
 
         $payload = [
-            'call' => 'ListarProdutos',
+            'call' => 'ListarContasCorrentes',
             'param' => [array_merge($defaultFilters, $filters)],
             'app_key' => $appKey,
             'app_secret' => $appSecret,
         ];
 
-        $response = $this->httpClient->request('POST', 'geral/produtos/', [
+        $response = $this->httpClient->request('POST', 'geral/contacorrente/', [
             'headers' => [
                 'Content-Type' => 'application/json',
             ],
@@ -66,3 +65,4 @@ final class OmieProductService implements ProductServiceInterface
         return $decoded;
     }
 }
+

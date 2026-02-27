@@ -10,11 +10,11 @@ $service = new OmieClientService();
 
 // Listar clientes
 $clients = $service->listClients();
-print_r($clients);
+var_dump($clients);
 
 // Pegar os dados de um cliente
 $client = $service->getClient(11118162834);
-print_r($client);
+var_dump($client);
 
 // Adicionar cliente
 $create_client = $service->createClient(array(
@@ -24,14 +24,14 @@ $create_client = $service->createClient(array(
     "nome_fantasia" => "Segundo cliente",
     "cnpj_cpf" => "81380763053"
 ));
-print_r($create_client);
+var_dump($create_client);
 
 // Atualizar cliente
 $update_client = $service->updateClient("CodigoInterno0002", array(
     "razao_social" => "Segundo Cliente Ninja Ltda Me",
 ));
-print_r($update_client);
+var_dump($update_client);
 
 // Excluir cliente
 $delete_client = $service->deleteClient(11119174794);
-print_r($delete_client);
+var_dump($delete_client);

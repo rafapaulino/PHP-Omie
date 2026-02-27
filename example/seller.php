@@ -13,4 +13,4 @@ $sellers = $service->listSellers(array(
     'registros_por_pagina' => 50
 ));
 
-print_r($sellers);
+var_dump($sellers);

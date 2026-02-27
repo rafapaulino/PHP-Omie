@@ -18,7 +18,7 @@ Para desenvolvedores iniciantes e intermediários que querem organizar uma integ
 ## Requisitos
 
 Antes de começar, você precisa ter instalado:
-- PHP 8.1+ (recomendado)
+- PHP 8.4+ (recomendado)
 - Composer
 
 ## Instalação
@@ -96,6 +96,14 @@ Isso permite implementar apenas o que sua classe realmente precisa.
 Contratos de vendedores:
 - `ListsSellersInterface` (`listSellers`)
 - `SellerServiceInterface` (agrega as interfaces de vendedores)
+
+Contratos de produtos:
+- `ListsProductsInterface` (`listProducts`)
+- `ProductServiceInterface` (agrega as interfaces de produtos)
+
+Contratos de contas correntes:
+- `ListsCurrentAccountsInterface` (`listCurrentAccounts`)
+- `CurrentAccountServiceInterface` (agrega as interfaces de contas correntes)
 
 ## Service de Clientes (`OmieClientService`)
 
@@ -187,6 +195,71 @@ $sellers = $service->listSellers([
 Por padrão, o método envia:
 - `pagina = 1`
 - `registros_por_pagina = 20`
+
+Você pode sobrescrever esses valores passando o array `$filters`.
+
+## Service de Produtos (`OmieProductService`)
+
+A implementação atual do serviço de produtos está em `src/Products/OmieProductService.php`.
+
+Métodos já implementados:
+- `listProducts(array $filters = []): array`
+
+### Exemplo de uso
+
+```php
+<?php
+
+use Rafael\Omiephpsdk\Products\OmieProductService;
+
+$service = new OmieProductService();
+
+// Lista produtos (call: ListarProdutos)
+$products = $service->listProducts([
+    'pagina' => 1,
+    'registros_por_pagina' => 50,
+]);
+```
+
+### Filtros do `listProducts`
+
+Por padrão, o método envia:
+- `pagina = 1`
+- `registros_por_pagina = 50`
+- `apenas_importado_api = 'N'`
+- `filtrar_apenas_omiepdv = 'N'`
+
+Você pode sobrescrever esses valores passando o array `$filters`.
+
+## Service de Contas Correntes (`OmieCurrentAccountService`)
+
+A implementação atual do serviço de contas correntes está em `src/CurrentAccount/OmieCurrentAccountService.php`.
+
+Métodos já implementados:
+- `listCurrentAccounts(array $filters = []): array`
+
+### Exemplo de uso
+
+```php
+<?php
+
+use Rafael\Omiephpsdk\CurrentAccount\OmieCurrentAccountService;
+
+$service = new OmieCurrentAccountService();
+
+// Lista contas correntes (call: ListarContasCorrentes)
+$accounts = $service->listCurrentAccounts([
+    'pagina' => 1,
+    'registros_por_pagina' => 100,
+]);
+```
+
+### Filtros do `listCurrentAccounts`
+
+Por padrão, o método envia:
+- `pagina = 1`
+- `registros_por_pagina = 100`
+- `apenas_importado_api = 'N'`
 
 Você pode sobrescrever esses valores passando o array `$filters`.
 
