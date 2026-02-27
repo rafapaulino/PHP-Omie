@@ -93,6 +93,10 @@ Interfaces disponíveis:
 
 Isso permite implementar apenas o que sua classe realmente precisa.
 
+Contratos de vendedores:
+- `ListsSellersInterface` (`listSellers`)
+- `SellerServiceInterface` (agrega as interfaces de vendedores)
+
 ## Service de Clientes (`OmieClientService`)
 
 A implementação atual do serviço de clientes está em `src/Clients/OmieClientService.php`.
@@ -152,6 +156,37 @@ Por padrão, o método envia:
 - `pagina = 1`
 - `registros_por_pagina = 50`
 - `apenas_importado_api = 'N'`
+
+Você pode sobrescrever esses valores passando o array `$filters`.
+
+## Service de Vendedores (`OmieSellerService`)
+
+A implementação atual do serviço de vendedores está em `src/Sellers/OmieSellerService.php`.
+
+Métodos já implementados:
+- `listSellers(array $filters = []): array`
+
+### Exemplo de uso
+
+```php
+<?php
+
+use Rafael\Omiephpsdk\Sellers\OmieSellerService;
+
+$service = new OmieSellerService();
+
+// Lista vendedores (call: ListarUsuarios)
+$sellers = $service->listSellers([
+    'pagina' => 1,
+    'registros_por_pagina' => 20,
+]);
+```
+
+### Filtros do `listSellers`
+
+Por padrão, o método envia:
+- `pagina = 1`
+- `registros_por_pagina = 20`
 
 Você pode sobrescrever esses valores passando o array `$filters`.
 
