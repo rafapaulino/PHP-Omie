@@ -109,6 +109,10 @@ Contratos de CFOP:
 - `ListsCfopInterface` (`listCfop`)
 - `CfopServiceInterface` (agrega as interfaces de CFOP)
 
+Contratos de categorias:
+- `ListsCategoriesInterface` (`listCategories`)
+- `CategoryServiceInterface` (agrega as interfaces de categorias)
+
 ## Service de Clientes (`OmieClientService`)
 
 A implementação atual do serviço de clientes está em `src/Clients/OmieClientService.php`.
@@ -291,6 +295,37 @@ $cfops = $service->listCfop([
 ```
 
 ### Filtros do `listCfop`
+
+Por padrão, o método envia:
+- `pagina = 1`
+- `registros_por_pagina = 50`
+
+Você pode sobrescrever esses valores passando o array `$filters`.
+
+## Service de Categorias (`OmieCategoryService`)
+
+A implementação atual do serviço de categorias está em `src/Categories/OmieCategoryService.php`.
+
+Métodos já implementados:
+- `listCategories(array $filters = []): array`
+
+### Exemplo de uso
+
+```php
+<?php
+
+use Rafael\Omiephpsdk\Categories\OmieCategoryService;
+
+$service = new OmieCategoryService();
+
+// Lista categorias (call: ListarCategorias)
+$categories = $service->listCategories([
+    'pagina' => 1,
+    'registros_por_pagina' => 50,
+]);
+```
+
+### Filtros do `listCategories`
 
 Por padrão, o método envia:
 - `pagina = 1`
