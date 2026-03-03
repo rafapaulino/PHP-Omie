@@ -93,8 +93,12 @@ Interfaces disponíveis:
 
 Isso permite implementar apenas o que sua classe realmente precisa.
 
+Contratos de users:
+- `ListsUsersInterface` (`listUsers`)
+- `UserServiceInterface` (agrega as interfaces de users)
+
 Contratos de vendedores:
-- `ListsSellersInterface` (`listSellers`)
+- `CreatesSellersInterface` (`createSeller`)
 - `SellerServiceInterface` (agrega as interfaces de vendedores)
 
 Contratos de produtos:
@@ -175,12 +179,43 @@ Por padrão, o método envia:
 
 Você pode sobrescrever esses valores passando o array `$filters`.
 
+## Service de Users (`OmieUserService`)
+
+A implementação atual do serviço de users está em `src/Users/OmieUserService.php`.
+
+Métodos já implementados:
+- `listUsers(array $filters = []): array`
+
+### Exemplo de uso
+
+```php
+<?php
+
+use Rafael\Omiephpsdk\Users\OmieUserService;
+
+$service = new OmieUserService();
+
+// Lista users (call: ListarUsuarios)
+$users = $service->listUsers([
+    'pagina' => 1,
+    'registros_por_pagina' => 20,
+]);
+```
+
+### Filtros do `listUsers`
+
+Por padrão, o método envia:
+- `pagina = 1`
+- `registros_por_pagina = 20`
+
+Você pode sobrescrever esses valores passando o array `$filters`.
+
 ## Service de Vendedores (`OmieSellerService`)
 
 A implementação atual do serviço de vendedores está em `src/Sellers/OmieSellerService.php`.
 
 Métodos já implementados:
-- `listSellers(array $filters = []): array`
+- `createSeller(array $payload): array`
 
 ### Exemplo de uso
 
@@ -191,20 +226,17 @@ use Rafael\Omiephpsdk\Sellers\OmieSellerService;
 
 $service = new OmieSellerService();
 
-// Lista vendedores (call: ListarUsuarios)
-$sellers = $service->listSellers([
-    'pagina' => 1,
-    'registros_por_pagina' => 20,
+// Cria vendedor (call: IncluirVendedor)
+$seller = $service->createSeller([
+    'codInt' => '123',
+    'nome' => 'Joao Teste',
+    'inativo' => 'N',
+    'email' => 'teste@minhaempresa.com.br',
+    'fatura_pedido' => 'S',
+    'visualiza_pedido' => 'N',
+    'comissao' => 10,
 ]);
 ```
-
-### Filtros do `listSellers`
-
-Por padrão, o método envia:
-- `pagina = 1`
-- `registros_por_pagina = 20`
-
-Você pode sobrescrever esses valores passando o array `$filters`.
 
 ## Service de Produtos (`OmieProductService`)
 

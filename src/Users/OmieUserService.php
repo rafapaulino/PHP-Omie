@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\Sellers;
+namespace Rafael\Omiephpsdk\Users;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Rafael\Omiephpsdk\Config\ConfigSingleton;
-use Rafael\Omiephpsdk\Sellers\Contracts\SellerServiceInterface;
+use Rafael\Omiephpsdk\Users\Contracts\UserServiceInterface;
 use RuntimeException;
 
-final class OmieSellerService implements SellerServiceInterface
+final class OmieUserService implements UserServiceInterface
 {
     private ClientInterface $httpClient;
 
@@ -27,40 +27,8 @@ final class OmieSellerService implements SellerServiceInterface
         ]);
     }
 
-    /** @param array<string, mixed> $payload */
-    public function createSeller(array $payload): array
-    {
-        $appKey = (string) ($this->config['omie_key'] ?? '');
-        $appSecret = (string) ($this->config['omie_secret'] ?? '');
-
-        if ($appKey === '' || $appSecret === '') {
-            throw new RuntimeException('Missing Omie credentials in configuration.');
-        }
-
-        $requestPayload = [
-            'call' => 'IncluirVendedor',
-            'param' => [$payload],
-            'app_key' => $appKey,
-            'app_secret' => $appSecret,
-        ];
-
-        $response = $this->httpClient->request('POST', 'geral/vendedores/', [
-            'headers' => [
-                'Content-Type' => 'application/json',
-            ],
-            'json' => $requestPayload,
-        ]);
-
-        $body = (string) $response->getBody();
-
-        /** @var array<string, mixed> $decoded */
-        $decoded = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-
-        return $decoded;
-    }
-
     /** @param array<string, mixed> $filters */
-    public function listSellers(array $filters = []): array
+    public function listUsers(array $filters = []): array
     {
         $appKey = (string) ($this->config['omie_key'] ?? '');
         $appSecret = (string) ($this->config['omie_secret'] ?? '');
@@ -71,18 +39,17 @@ final class OmieSellerService implements SellerServiceInterface
 
         $defaultFilters = [
             'pagina' => 1,
-            'registros_por_pagina' => 100,
-            'apenas_importado_api' => 'N',
+            'registros_por_pagina' => 20,
         ];
 
         $payload = [
-            'call' => 'ListarVendedores',
+            'call' => 'ListarUsuarios',
             'param' => [array_merge($defaultFilters, $filters)],
             'app_key' => $appKey,
             'app_secret' => $appSecret,
         ];
 
-        $response = $this->httpClient->request('POST', 'geral/vendedores/', [
+        $response = $this->httpClient->request('POST', 'crm/usuarios/', [
             'headers' => [
                 'Content-Type' => 'application/json',
             ],
@@ -97,3 +64,4 @@ final class OmieSellerService implements SellerServiceInterface
         return $decoded;
     }
 }
+
