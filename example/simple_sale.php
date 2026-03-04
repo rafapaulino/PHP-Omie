@@ -29,3 +29,10 @@ $sale = $service->addOrder(array(
 var_dump($sale);
 
 //listagem de pedidos
+$orders = $service->listOrders([
+    'pagina' => 1,
+    'registros_por_pagina' => 100,
+    'apenas_importado_api' => 'N',
+]);
+
+var_dump($orders);

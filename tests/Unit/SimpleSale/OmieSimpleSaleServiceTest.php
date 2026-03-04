@@ -7,6 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use Rafael\Omiephpsdk\SimpleSale\OmieSimpleSaleService;
 
+
 beforeEach(function (): void {
     resetConfigSingleton();
 });
@@ -85,4 +86,74 @@ it('adds an order using AdicionarPedido payload', function (): void {
     expect($result)->toBeArray()
         ->and($result['codigo_status'])->toBe('0')
         ->and($result['descricao_status'])->toBe('Pedido incluido com sucesso!');
+});
+
+it('lists orders using ListarPedidos payload with merged filters', function (): void {
+    $api = 'https://app.omie.com.br/api/v1/';
+    $key = 'test-app-key';
+    $secret = 'test-app-secret';
+
+    $_ENV['OMIE_API'] = $api;
+    $_ENV['APP_KEY'] = $key;
+    $_ENV['APP_SECRET'] = $secret;
+
+    putenv('OMIE_API=' . $api);
+    putenv('APP_KEY=' . $key);
+    putenv('APP_SECRET=' . $secret);
+
+    $filters = [
+        'pagina' => 2,
+        'registros_por_pagina' => 50,
+    ];
+
+    $responseBody = json_encode([
+        'pagina' => 2,
+        'total_de_paginas' => 1,
+        'pedido_venda_produto' => [
+            ['numero_pedido' => 123, 'codigo_pedido_integracao' => 'ABC-123'],
+        ],
+    ], JSON_THROW_ON_ERROR);
+
+    $stream = $this->createMock(StreamInterface::class);
+    $stream->expects($this->once())
+        ->method('__toString')
+        ->willReturn($responseBody);
+
+    $response = $this->createMock(ResponseInterface::class);
+    $response->expects($this->once())
+        ->method('getBody')
+        ->willReturn($stream);
+
+    $httpClient = $this->createMock(ClientInterface::class);
+    $httpClient->expects($this->once())
+        ->method('request')
+        ->with(
+            'POST',
+            'produtos/pedido/',
+            [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => [
+                    'call' => 'ListarPedidos',
+                    'param' => [[
+                        'pagina' => 2,
+                        'registros_por_pagina' => 50,
+                        'apenas_importado_api' => 'N',
+                    ]],
+                    'app_key' => $key,
+                    'app_secret' => $secret,
+                ],
+            ]
+        )
+        ->willReturn($response);
+
+    $service = new OmieSimpleSaleService($httpClient);
+
+    $result = $service->listOrders($filters);
+
+    expect($result)->toBeArray()
+        ->and($result['pagina'])->toBe(2)
+        ->and($result['pedido_venda_produto'])->toHaveCount(1)
+        ->and($result['pedido_venda_produto'][0]['numero_pedido'])->toBe(123);
 });
