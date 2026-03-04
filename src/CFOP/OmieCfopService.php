@@ -10,6 +10,7 @@ use Rafael\Omiephpsdk\CFOP\Contracts\CfopServiceInterface;
 use Rafael\Omiephpsdk\Config\ConfigSingleton;
 use RuntimeException;
 
+
 final class OmieCfopService implements CfopServiceInterface
 {
     private ClientInterface $httpClient;

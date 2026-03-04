@@ -10,6 +10,7 @@ use Rafael\Omiephpsdk\BillingSteps\Contracts\BillingStepServiceInterface;
 use Rafael\Omiephpsdk\Config\ConfigSingleton;
 use RuntimeException;
 
+
 final class OmieBillingStepService implements BillingStepServiceInterface
 {
     private ClientInterface $httpClient;

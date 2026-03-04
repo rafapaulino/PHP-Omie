@@ -10,6 +10,7 @@ use Rafael\Omiephpsdk\Categories\Contracts\CategoryServiceInterface;
 use Rafael\Omiephpsdk\Config\ConfigSingleton;
 use RuntimeException;
 
+
 final class OmieCategoryService implements CategoryServiceInterface
 {
     private ClientInterface $httpClient;
