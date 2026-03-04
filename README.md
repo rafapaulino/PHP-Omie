@@ -117,6 +117,10 @@ Contratos de categorias:
 - `ListsCategoriesInterface` (`listCategories`)
 - `CategoryServiceInterface` (agrega as interfaces de categorias)
 
+Contratos de formas de pagamento:
+- `ListsPaymentMethodsInterface` (`listPaymentMethods`)
+- `PaymentMethodServiceInterface` (agrega as interfaces de formas de pagamento)
+
 ## Service de Clientes (`OmieClientService`)
 
 A implementação atual do serviço de clientes está em `src/Clients/OmieClientService.php`.
@@ -358,6 +362,37 @@ $categories = $service->listCategories([
 ```
 
 ### Filtros do `listCategories`
+
+Por padrão, o método envia:
+- `pagina = 1`
+- `registros_por_pagina = 50`
+
+Você pode sobrescrever esses valores passando o array `$filters`.
+
+## Service de Formas de Pagamento (`OmiePaymentMethodService`)
+
+A implementação atual do serviço de formas de pagamento está em `src/PaymentMethods/OmiePaymentMethodService.php`.
+
+Métodos já implementados:
+- `listPaymentMethods(array $filters = []): array`
+
+### Exemplo de uso
+
+```php
+<?php
+
+use Rafael\Omiephpsdk\PaymentMethods\OmiePaymentMethodService;
+
+$service = new OmiePaymentMethodService();
+
+// Lista formas de pagamento (call: ListarFormasPagVendas)
+$paymentMethods = $service->listPaymentMethods([
+    'pagina' => 1,
+    'registros_por_pagina' => 50,
+]);
+```
+
+### Filtros do `listPaymentMethods`
 
 Por padrão, o método envia:
 - `pagina = 1`
