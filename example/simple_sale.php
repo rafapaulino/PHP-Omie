@@ -28,6 +28,14 @@ $sale = $service->addOrder(array(
 
 var_dump($sale);
 
+//adiciona observacao no pedido faturado
+$saleObs = $service->addObs([
+    'codigo_pedido' => $sale['codigo_pedido'],
+    'obs_venda' => 'Comentario adicionado em: ' . date("d/m/Y H:i:s"),
+]);
+
+var_dump($saleObs);
+
 //listagem de pedidos
 $orders = $service->listOrders([
     'pagina' => 1,

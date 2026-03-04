@@ -6,6 +6,7 @@ namespace Rafael\Omiephpsdk\SimpleSale;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use InvalidArgumentException;
 use Rafael\Omiephpsdk\Config\ConfigSingleton;
 use Rafael\Omiephpsdk\SimpleSale\Contracts\SimpleSaleServiceInterface;
 use RuntimeException;
@@ -80,6 +81,38 @@ final class OmieSimpleSaleService implements SimpleSaleServiceInterface
         $requestPayload = [
             'call' => 'ListarPedidos',
             'param' => [array_merge($defaultFilters, $filters)],
+            'app_key' => $appKey,
+            'app_secret' => $appSecret,
+        ];
+
+        $response = $this->httpClient->request('POST', 'produtos/pedido/', [
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            'json' => $requestPayload,
+        ]);
+
+        $body = (string) $response->getBody();
+
+        /** @var array<string, mixed> $decoded */
+        $decoded = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+
+        return $decoded;
+    }
+
+    /** @param array<string, mixed> $payload */
+    public function addObs(array $payload): array
+    {
+        $appKey = (string) ($this->config['omie_key'] ?? '');
+        $appSecret = (string) ($this->config['omie_secret'] ?? '');
+
+        if ($appKey === '' || $appSecret === '') {
+            throw new RuntimeException('Missing Omie credentials in configuration.');
+        }
+
+        $requestPayload = [
+            'call' => 'AlterarPedFaturado',
+            'param' => [$payload],
             'app_key' => $appKey,
             'app_secret' => $appSecret,
         ];

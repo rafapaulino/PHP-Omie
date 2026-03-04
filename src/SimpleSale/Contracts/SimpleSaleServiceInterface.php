@@ -6,6 +6,7 @@ namespace Rafael\Omiephpsdk\SimpleSale\Contracts;
 
 interface SimpleSaleServiceInterface extends
     AddsOrdersInterface,
+    AddsObsInterface,
     ListsOrdersInterface
 {
 }

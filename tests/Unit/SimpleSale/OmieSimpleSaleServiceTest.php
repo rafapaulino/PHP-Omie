@@ -157,3 +157,65 @@ it('lists orders using ListarPedidos payload with merged filters', function (): 
         ->and($result['pedido_venda_produto'])->toHaveCount(1)
         ->and($result['pedido_venda_produto'][0]['numero_pedido'])->toBe(123);
 });
+
+it('adds sale observation using AlterarPedFaturado payload', function (): void {
+    $api = 'https://app.omie.com.br/api/v1/';
+    $key = 'test-app-key';
+    $secret = 'test-app-secret';
+
+    $_ENV['OMIE_API'] = $api;
+    $_ENV['APP_KEY'] = $key;
+    $_ENV['APP_SECRET'] = $secret;
+
+    putenv('OMIE_API=' . $api);
+    putenv('APP_KEY=' . $key);
+    putenv('APP_SECRET=' . $secret);
+
+    $obsPayload = [
+        'codigo_pedido' => 3061133689,
+        'obs_venda' => 'ahdgasdfsgdfsg',
+    ];
+
+    $responseBody = json_encode([
+        'codigo_status' => '0',
+        'descricao_status' => 'Pedido alterado com sucesso!',
+    ], JSON_THROW_ON_ERROR);
+
+    $stream = $this->createMock(StreamInterface::class);
+    $stream->expects($this->once())
+        ->method('__toString')
+        ->willReturn($responseBody);
+
+    $response = $this->createMock(ResponseInterface::class);
+    $response->expects($this->once())
+        ->method('getBody')
+        ->willReturn($stream);
+
+    $httpClient = $this->createMock(ClientInterface::class);
+    $httpClient->expects($this->once())
+        ->method('request')
+        ->with(
+            'POST',
+            'produtos/pedido/',
+            [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => [
+                    'call' => 'AlterarPedFaturado',
+                    'param' => [$obsPayload],
+                    'app_key' => $key,
+                    'app_secret' => $secret,
+                ],
+            ]
+        )
+        ->willReturn($response);
+
+    $service = new OmieSimpleSaleService($httpClient);
+
+    $result = $service->addObs($obsPayload);
+
+    expect($result)->toBeArray()
+        ->and($result['codigo_status'])->toBe('0')
+        ->and($result['descricao_status'])->toBe('Pedido alterado com sucesso!');
+});
