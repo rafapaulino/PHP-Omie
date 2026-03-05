@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\CurrentAccount;
+namespace Rafapaulino\Omiephpsdk\CurrentAccount;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Rafael\Omiephpsdk\Config\ConfigSingleton;
-use Rafael\Omiephpsdk\CurrentAccount\Contracts\CurrentAccountServiceInterface;
+use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\CurrentAccount\Contracts\CurrentAccountServiceInterface;
 use RuntimeException;
 
 final class OmieCurrentAccountService implements CurrentAccountServiceInterface
@@ -65,4 +65,6 @@ final class OmieCurrentAccountService implements CurrentAccountServiceInterface
         return $decoded;
     }
 }
+
+
 

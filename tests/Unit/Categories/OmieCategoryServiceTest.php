@@ -5,7 +5,7 @@ declare(strict_types=1);
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
-use Rafael\Omiephpsdk\Categories\OmieCategoryService;
+use Rafapaulino\Omiephpsdk\Categories\OmieCategoryService;
 
 
 beforeEach(function (): void {
@@ -100,4 +100,6 @@ it('throws when Omie credentials are missing for categories service', function (
 
     expect($call)->toThrow(RuntimeException::class, 'Missing Omie credentials in configuration.');
 });
+
+
 

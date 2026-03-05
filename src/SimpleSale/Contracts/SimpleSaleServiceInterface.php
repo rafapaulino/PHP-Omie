@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\SimpleSale\Contracts;
+namespace Rafapaulino\Omiephpsdk\SimpleSale\Contracts;
 
 interface SimpleSaleServiceInterface extends
     AddsOrdersInterface,
@@ -10,3 +10,5 @@ interface SimpleSaleServiceInterface extends
     ListsOrdersInterface
 {
 }
+
+

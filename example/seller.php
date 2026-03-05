@@ -4,21 +4,21 @@ $parent_dir = dirname(__DIR__, 1);
 
 require $parent_dir . '/vendor/autoload.php';
 
-use Rafael\Omiephpsdk\Sellers\OmieSellerService;
+use Rafapaulino\Omiephpsdk\Sellers\OmieSellerService;
 
 $service = new OmieSellerService();
 
 /* gero um nome aleatorio apenas para o cadastro */
 $nomes = [
-    "João", "Maria", "José", "Ana", "Carlos",
+    "JoÃ£o", "Maria", "JosÃ©", "Ana", "Carlos",
     "Paulo", "Mariana", "Lucas", "Fernanda", "Ricardo",
-    "Juliana", "Gabriel", "Patrícia", "Rafael", "Camila"
+    "Juliana", "Gabriel", "PatrÃ­cia", "Rafael", "Camila"
 ];
 
 $sobrenomes = [
     "Silva", "Santos", "Oliveira", "Souza", "Pereira",
     "Costa", "Rodrigues", "Almeida", "Nascimento", "Lima",
-    "Araújo", "Fernandes", "Carvalho", "Gomes", "Martins"
+    "AraÃºjo", "Fernandes", "Carvalho", "Gomes", "Martins"
 ];
 
 $nomeAleatorio = $nomes[array_rand($nomes)];
@@ -45,3 +45,5 @@ $sellers = $service->listSellers([
 ]);
 
 var_dump($sellers);
+
+

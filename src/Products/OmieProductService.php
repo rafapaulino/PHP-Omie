@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\Products;
+namespace Rafapaulino\Omiephpsdk\Products;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Rafael\Omiephpsdk\Config\ConfigSingleton;
-use Rafael\Omiephpsdk\Products\Contracts\ProductServiceInterface;
+use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\Products\Contracts\ProductServiceInterface;
 use RuntimeException;
 
 final class OmieProductService implements ProductServiceInterface
@@ -66,3 +66,5 @@ final class OmieProductService implements ProductServiceInterface
         return $decoded;
     }
 }
+
+

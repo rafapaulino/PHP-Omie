@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\SimpleSale;
+namespace Rafapaulino\Omiephpsdk\SimpleSale;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use InvalidArgumentException;
-use Rafael\Omiephpsdk\Config\ConfigSingleton;
-use Rafael\Omiephpsdk\SimpleSale\Contracts\SimpleSaleServiceInterface;
+use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\SimpleSale\Contracts\SimpleSaleServiceInterface;
 use RuntimeException;
 
 final class OmieSimpleSaleService implements SimpleSaleServiceInterface
@@ -179,3 +179,5 @@ final class OmieSimpleSaleService implements SimpleSaleServiceInterface
         }
     }
 }
+
+

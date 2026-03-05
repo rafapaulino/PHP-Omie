@@ -5,8 +5,8 @@ declare(strict_types=1);
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
-use Rafael\Omiephpsdk\Clients\OmieClientService;
-use Rafael\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\Clients\OmieClientService;
+use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
 
 
 beforeEach(function (): void {
@@ -417,3 +417,5 @@ it('deletes a client using ExcluirCliente payload', function (): void {
         ->and($result['codigo_status'])->toBe('0')
         ->and($result['descricao_status'])->toBe('Cliente excluido com sucesso!');
 });
+
+

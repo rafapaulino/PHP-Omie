@@ -1,11 +1,11 @@
 {
-    "name": "rafael/omiephpsdk",
+    "name": "rafapaulino/omiephpsdk",
     "description": "Biblioteca PHP para o uso com a api da OMIE",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Rafael\\Omiephpsdk\\": "src/"
+            "Rafapaulino\\Omiephpsdk\\": "src/"
         }
     },
     "authors": [
@@ -29,3 +29,5 @@
         }
     }
 }
+
+

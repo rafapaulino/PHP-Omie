@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\CFOP;
+namespace Rafapaulino\Omiephpsdk\CFOP;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Rafael\Omiephpsdk\CFOP\Contracts\CfopServiceInterface;
-use Rafael\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\CFOP\Contracts\CfopServiceInterface;
+use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
 use RuntimeException;
 
 
@@ -65,4 +65,6 @@ final class OmieCfopService implements CfopServiceInterface
         return $decoded;
     }
 }
+
+
 

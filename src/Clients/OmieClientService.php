@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\Clients;
+namespace Rafapaulino\Omiephpsdk\Clients;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Rafael\Omiephpsdk\Clients\Contracts\ClientServiceInterface;
-use Rafael\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\Clients\Contracts\ClientServiceInterface;
+use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
 use RuntimeException;
 
 final class OmieClientService implements ClientServiceInterface
@@ -200,3 +200,5 @@ final class OmieClientService implements ClientServiceInterface
         return $decoded;
     }
 }
+
+

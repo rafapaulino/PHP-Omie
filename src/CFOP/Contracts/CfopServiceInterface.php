@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\CFOP\Contracts;
+namespace Rafapaulino\Omiephpsdk\CFOP\Contracts;
 
 interface CfopServiceInterface extends ListsCfopInterface
 {
 }
+
+
 

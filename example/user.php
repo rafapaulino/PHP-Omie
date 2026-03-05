@@ -4,7 +4,7 @@ $parent_dir = dirname(__DIR__, 1);
 
 require $parent_dir . '/vendor/autoload.php';
 
-use Rafael\Omiephpsdk\Users\OmieUserService;
+use Rafapaulino\Omiephpsdk\Users\OmieUserService;
 
 $service = new OmieUserService();
 
@@ -14,4 +14,6 @@ $users = $service->listUsers([
 ]);
 
 var_dump($users);
+
+
 

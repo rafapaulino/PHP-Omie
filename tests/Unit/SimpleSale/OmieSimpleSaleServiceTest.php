@@ -5,7 +5,7 @@ declare(strict_types=1);
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
-use Rafael\Omiephpsdk\SimpleSale\OmieSimpleSaleService;
+use Rafapaulino\Omiephpsdk\SimpleSale\OmieSimpleSaleService;
 
 
 beforeEach(function (): void {
@@ -219,3 +219,5 @@ it('adds sale observation using AlterarPedFaturado payload', function (): void {
         ->and($result['codigo_status'])->toBe('0')
         ->and($result['descricao_status'])->toBe('Pedido alterado com sucesso!');
 });
+
+

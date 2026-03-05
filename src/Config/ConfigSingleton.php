@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\Config;
+namespace Rafapaulino\Omiephpsdk\Config;
 
 use Dotenv\Dotenv;
 
@@ -49,3 +49,5 @@ final class ConfigSingleton
         throw new \RuntimeException('Cannot unserialize singleton');
     }
 }
+
+

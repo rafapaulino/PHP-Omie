@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\PaymentMethods;
+namespace Rafapaulino\Omiephpsdk\PaymentMethods;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Rafael\Omiephpsdk\Config\ConfigSingleton;
-use Rafael\Omiephpsdk\PaymentMethods\Contracts\PaymentMethodServiceInterface;
+use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\PaymentMethods\Contracts\PaymentMethodServiceInterface;
 use RuntimeException;
 
 final class OmiePaymentMethodService implements PaymentMethodServiceInterface
@@ -64,4 +64,6 @@ final class OmiePaymentMethodService implements PaymentMethodServiceInterface
         return $decoded;
     }
 }
+
+
 

@@ -4,7 +4,7 @@ $parent_dir = dirname(__DIR__, 1);
 
 require $parent_dir . '/vendor/autoload.php';
 
-use Rafael\Omiephpsdk\BillingSteps\OmieBillingStepService;
+use Rafapaulino\Omiephpsdk\BillingSteps\OmieBillingStepService;
 
 $service = new OmieBillingStepService();
 
@@ -14,3 +14,5 @@ $billingSteps = $service->listBillingSteps([
 ]);
 
 var_dump($billingSteps);
+
+

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\Clients\Contracts;
+namespace Rafapaulino\Omiephpsdk\Clients\Contracts;
 
 interface ClientServiceInterface extends
     CreatesClientsInterface,
@@ -12,3 +12,5 @@ interface ClientServiceInterface extends
     ListsClientsInterface
 {
 }
+
+

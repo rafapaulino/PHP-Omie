@@ -5,7 +5,7 @@ declare(strict_types=1);
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
-use Rafael\Omiephpsdk\CurrentAccount\OmieCurrentAccountService;
+use Rafapaulino\Omiephpsdk\CurrentAccount\OmieCurrentAccountService;
 
 
 beforeEach(function (): void {
@@ -101,4 +101,6 @@ it('throws when Omie credentials are missing for current account service', funct
 
     expect($call)->toThrow(RuntimeException::class, 'Missing Omie credentials in configuration.');
 });
+
+
 

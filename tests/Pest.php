@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Rafael\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
 
 function resetConfigSingleton(): void
 {
@@ -11,3 +11,5 @@ function resetConfigSingleton(): void
     $instanceProperty->setAccessible(true);
     $instanceProperty->setValue(null, null);
 }
+
+

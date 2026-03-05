@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\CurrentAccount\Contracts;
+namespace Rafapaulino\Omiephpsdk\CurrentAccount\Contracts;
 
 interface CurrentAccountServiceInterface extends ListsCurrentAccountsInterface
 {
 }
+
+
 

@@ -4,7 +4,7 @@ $parent_dir = dirname(__DIR__, 1);
 
 require $parent_dir . '/vendor/autoload.php';
 
-use Rafael\Omiephpsdk\Clients\OmieClientService;
+use Rafapaulino\Omiephpsdk\Clients\OmieClientService;
 
 $service = new OmieClientService();
 
@@ -35,3 +35,4 @@ var_dump($update_client);
 // Excluir cliente
 $delete_client = $service->deleteClient(11119174794);
 var_dump($delete_client);
+

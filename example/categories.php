@@ -4,7 +4,7 @@ $parent_dir = dirname(__DIR__, 1);
 
 require $parent_dir . '/vendor/autoload.php';
 
-use Rafael\Omiephpsdk\Categories\OmieCategoryService;
+use Rafapaulino\Omiephpsdk\Categories\OmieCategoryService;
 
 $service = new OmieCategoryService();
 
@@ -14,4 +14,6 @@ $categories = $service->listCategories([
 ]);
 
 var_dump($categories);
+
+
 

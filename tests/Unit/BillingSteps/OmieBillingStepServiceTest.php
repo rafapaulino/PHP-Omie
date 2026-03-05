@@ -5,7 +5,7 @@ declare(strict_types=1);
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
-use Rafael\Omiephpsdk\BillingSteps\OmieBillingStepService;
+use Rafapaulino\Omiephpsdk\BillingSteps\OmieBillingStepService;
 
 beforeEach(function (): void {
     resetConfigSingleton();
@@ -98,3 +98,5 @@ it('throws when Omie credentials are missing for billing steps service', functio
 
     expect($call)->toThrow(RuntimeException::class, 'Missing Omie credentials in configuration.');
 });
+
+

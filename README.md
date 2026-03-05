@@ -1,4 +1,4 @@
-﻿# Biblioteca de Integração com a Omie
+# Biblioteca de Integração com a Omie
 
 A url para realizar os testes na api da Omie é essa:
 [https://app.omie.com.br/developer/](https://app.omie.com.br/developer/)
@@ -59,7 +59,7 @@ Exemplo:
 ```php
 <?php
 
-use Rafael\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
 
 $config = ConfigSingleton::getInstance()->getConfig();
 
@@ -137,7 +137,7 @@ Métodos já implementados:
 ```php
 <?php
 
-use Rafael\Omiephpsdk\Clients\OmieClientService;
+use Rafapaulino\Omiephpsdk\Clients\OmieClientService;
 
 $service = new OmieClientService();
 
@@ -195,7 +195,7 @@ Métodos já implementados:
 ```php
 <?php
 
-use Rafael\Omiephpsdk\Users\OmieUserService;
+use Rafapaulino\Omiephpsdk\Users\OmieUserService;
 
 $service = new OmieUserService();
 
@@ -226,7 +226,7 @@ Métodos já implementados:
 ```php
 <?php
 
-use Rafael\Omiephpsdk\Sellers\OmieSellerService;
+use Rafapaulino\Omiephpsdk\Sellers\OmieSellerService;
 
 $service = new OmieSellerService();
 
@@ -254,7 +254,7 @@ Métodos já implementados:
 ```php
 <?php
 
-use Rafael\Omiephpsdk\Products\OmieProductService;
+use Rafapaulino\Omiephpsdk\Products\OmieProductService;
 
 $service = new OmieProductService();
 
@@ -287,7 +287,7 @@ Métodos já implementados:
 ```php
 <?php
 
-use Rafael\Omiephpsdk\CurrentAccount\OmieCurrentAccountService;
+use Rafapaulino\Omiephpsdk\CurrentAccount\OmieCurrentAccountService;
 
 $service = new OmieCurrentAccountService();
 
@@ -319,7 +319,7 @@ Métodos já implementados:
 ```php
 <?php
 
-use Rafael\Omiephpsdk\CFOP\OmieCfopService;
+use Rafapaulino\Omiephpsdk\CFOP\OmieCfopService;
 
 $service = new OmieCfopService();
 
@@ -350,7 +350,7 @@ Métodos já implementados:
 ```php
 <?php
 
-use Rafael\Omiephpsdk\Categories\OmieCategoryService;
+use Rafapaulino\Omiephpsdk\Categories\OmieCategoryService;
 
 $service = new OmieCategoryService();
 
@@ -381,7 +381,7 @@ Métodos já implementados:
 ```php
 <?php
 
-use Rafael\Omiephpsdk\PaymentMethods\OmiePaymentMethodService;
+use Rafapaulino\Omiephpsdk\PaymentMethods\OmiePaymentMethodService;
 
 $service = new OmiePaymentMethodService();
 
@@ -428,3 +428,5 @@ Próximos passos comuns:
 ## Licença
 
 MIT
+
+

@@ -4,7 +4,7 @@ $parent_dir = dirname(__DIR__, 1);
 
 require $parent_dir . '/vendor/autoload.php';
 
-use Rafael\Omiephpsdk\CurrentAccount\OmieCurrentAccountService;
+use Rafapaulino\Omiephpsdk\CurrentAccount\OmieCurrentAccountService;
 
 $service = new OmieCurrentAccountService();
 
@@ -14,3 +14,5 @@ $accounts = $service->listCurrentAccounts([
 ]);
 
 var_dump($accounts);
+
+

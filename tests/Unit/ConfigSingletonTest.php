@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Rafael\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
 
 beforeEach(function (): void {
     resetConfigSingleton();
@@ -46,3 +46,5 @@ it('uses existing environment values when available', function (): void {
         ->and($config['omie_key'])->toBe($key)
         ->and($config['omie_secret'])->toBe($secret);
 });
+
+

@@ -5,7 +5,7 @@ declare(strict_types=1);
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
-use Rafael\Omiephpsdk\Users\OmieUserService;
+use Rafapaulino\Omiephpsdk\Users\OmieUserService;
 
 beforeEach(function (): void {
     resetConfigSingleton();
@@ -99,4 +99,6 @@ it('throws when Omie credentials are missing for users service', function (): vo
 
     expect($call)->toThrow(RuntimeException::class, 'Missing Omie credentials in configuration.');
 });
+
+
 

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\BillingSteps;
+namespace Rafapaulino\Omiephpsdk\BillingSteps;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Rafael\Omiephpsdk\BillingSteps\Contracts\BillingStepServiceInterface;
-use Rafael\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\BillingSteps\Contracts\BillingStepServiceInterface;
+use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
 use RuntimeException;
 
 
@@ -65,3 +65,5 @@ final class OmieBillingStepService implements BillingStepServiceInterface
         return $decoded;
     }
 }
+
+

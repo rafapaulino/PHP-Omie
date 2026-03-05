@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\Categories;
+namespace Rafapaulino\Omiephpsdk\Categories;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Rafael\Omiephpsdk\Categories\Contracts\CategoryServiceInterface;
-use Rafael\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\Categories\Contracts\CategoryServiceInterface;
+use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
 use RuntimeException;
 
 
@@ -65,4 +65,6 @@ final class OmieCategoryService implements CategoryServiceInterface
         return $decoded;
     }
 }
+
+
 

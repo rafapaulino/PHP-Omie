@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Rafael\Omiephpsdk\Users;
+namespace Rafapaulino\Omiephpsdk\Users;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Rafael\Omiephpsdk\Config\ConfigSingleton;
-use Rafael\Omiephpsdk\Users\Contracts\UserServiceInterface;
+use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\Users\Contracts\UserServiceInterface;
 use RuntimeException;
 
 final class OmieUserService implements UserServiceInterface
@@ -64,4 +64,6 @@ final class OmieUserService implements UserServiceInterface
         return $decoded;
     }
 }
+
+
 
