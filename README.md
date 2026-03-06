@@ -7,7 +7,7 @@ Biblioteca PHP para facilitar integração com a API da Omie.
 
 Este projeto ainda está em construção, mas já tem uma base pronta para:
 - carregar configurações por `.env`
-- centralizar configurações com singleton
+- resolver configuração para Laravel e standalone
 - definir contratos de clientes seguindo SOLID
 - executar testes com Pest
 
@@ -48,20 +48,58 @@ OMIE_APP_SECRET=seu_segredo_omie
 - `OMIE_APP_KEY`: sua chave da aplicação na Omie.
 - `OMIE_APP_SECRET`: seu segredo da aplicação na Omie.
 
+## Uso com Laravel
+
+O pacote suporta auto-discovery do provider via Composer.
+
+1. Adicione as variáveis no `.env` da aplicação Laravel:
+
+```env
+OMIE_API=https://app.omie.com.br/api/v1/
+OMIE_APP_KEY=sua_chave_omie
+OMIE_APP_SECRET=seu_segredo_omie
+OMIE_TIMEOUT=30
+```
+
+2. Publique a configuração do pacote:
+
+```bash
+php artisan vendor:publish --tag=omie-config
+```
+
+3. Injete as interfaces diretamente no container do Laravel:
+
+```php
+<?php
+
+use Rafapaulino\Omiephpsdk\Clients\Contracts\ClientServiceInterface;
+
+final class OmieClientController
+{
+    public function __construct(private ClientServiceInterface $clientService)
+    {
+    }
+}
+```
+
+Arquivo de configuração publicado: `config/omie.php`.
+
 ## Como obter as configurações no código
 
-A classe `ConfigSingleton` carrega o `.env` e retorna o array de configuração da biblioteca.
+A classe `Config` resolve automaticamente a configuração:
+- em Laravel, lê `config('omie')`
+- em standalone, carrega `.env` e usa `src/config.php`
 
-Arquivo: `src/Config/ConfigSingleton.php`
+Arquivo: `src/Config/Config.php`
 
 Exemplo:
 
 ```php
 <?php
 
-use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\Config\Config;
 
-$config = ConfigSingleton::getInstance()->getConfig();
+$config = Config::resolve();
 
 print_r($config);
 ```
@@ -74,8 +112,11 @@ Array
     [omie_api] => https://app.omie.com.br/api/v1/
     [omie_key] => sua_chave_omie
     [omie_secret] => seu_segredo_omie
+    [timeout] => 30
 )
 ```
+
+`ConfigSingleton` continua disponível por retrocompatibilidade.
 
 ## Estrutura de contratos (SOLID)
 
