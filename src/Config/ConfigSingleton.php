@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Rafapaulino\Omiephpsdk\Config;
 
-use Dotenv\Dotenv;
-
 final class ConfigSingleton
 {
     private static ?self $instance = null;
@@ -15,14 +13,7 @@ final class ConfigSingleton
 
     private function __construct()
     {
-        $projectRoot = dirname(__DIR__, 2);
-
-        Dotenv::createImmutable($projectRoot)->safeLoad();
-
-        /** @var array<string, mixed> $config */
-        $config = require __DIR__ . '/../config.php';
-
-        $this->config = $config;
+        $this->config = Config::resolve();
     }
 
     public static function getInstance(): self
@@ -49,5 +40,3 @@ final class ConfigSingleton
         throw new \RuntimeException('Cannot unserialize singleton');
     }
 }
-
-

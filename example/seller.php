@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $parent_dir = dirname(__DIR__, 1);
 
@@ -10,15 +10,39 @@ $service = new OmieSellerService();
 
 /* gero um nome aleatorio apenas para o cadastro */
 $nomes = [
-    "JoÃ£o", "Maria", "JosÃ©", "Ana", "Carlos",
-    "Paulo", "Mariana", "Lucas", "Fernanda", "Ricardo",
-    "Juliana", "Gabriel", "PatrÃ­cia", "Rafael", "Camila"
+    "Pedro",
+    "Maria",
+    "João",
+    "Ana",
+    "Carlos",
+    "Paulo",
+    "Mariana",
+    "Lucas",
+    "Fernanda",
+    "Ricardo",
+    "Juliana",
+    "Gabriel",
+    "Patrí­cia",
+    "Rafael",
+    "Camila"
 ];
 
 $sobrenomes = [
-    "Silva", "Santos", "Oliveira", "Souza", "Pereira",
-    "Costa", "Rodrigues", "Almeida", "Nascimento", "Lima",
-    "AraÃºjo", "Fernandes", "Carvalho", "Gomes", "Martins"
+    "Silva",
+    "Santos",
+    "Oliveira",
+    "Souza",
+    "Pereira",
+    "Costa",
+    "Rodrigues",
+    "Almeida",
+    "Nascimento",
+    "Lima",
+    "Araújo",
+    "Fernandes",
+    "Carvalho",
+    "Gomes",
+    "Martins"
 ];
 
 $nomeAleatorio = $nomes[array_rand($nomes)];
@@ -33,7 +57,7 @@ $seller = $service->createSeller(array(
     'email' => 'fulano.' . time() . '@minhaempresa.com.br',
     'fatura_pedido' => 'S',
     'visualiza_pedido' => 'N',
-    'comissao' => rand(5,30)
+    'comissao' => rand(5, 30)
 ));
 var_dump($seller);
 
@@ -45,5 +69,3 @@ $sellers = $service->listSellers([
 ]);
 
 var_dump($sellers);
-
-

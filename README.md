@@ -1,4 +1,4 @@
-# Biblioteca de Integração com a Omie
+﻿# Biblioteca de Integração com a Omie
 
 A url para realizar os testes na api da Omie é essa:
 [https://app.omie.com.br/developer/](https://app.omie.com.br/developer/)
@@ -39,14 +39,14 @@ Este projeto lê variáveis de ambiente para montar a configuração.
 
 ```env
 OMIE_API=https://app.omie.com.br/api/v1/
-APP_KEY=sua_chave_omie
-APP_SECRET=seu_segredo_omie
+OMIE_APP_KEY=sua_chave_omie
+OMIE_APP_SECRET=seu_segredo_omie
 ```
 
 ### O que cada variável significa?
 - `OMIE_API`: URL base da API da Omie.
-- `APP_KEY`: sua chave da aplicação na Omie.
-- `APP_SECRET`: seu segredo da aplicação na Omie.
+- `OMIE_APP_KEY`: sua chave da aplicação na Omie.
+- `OMIE_APP_SECRET`: seu segredo da aplicação na Omie.
 
 ## Como obter as configurações no código
 

@@ -6,7 +6,7 @@ namespace Rafapaulino\Omiephpsdk\PaymentMethods;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\Config\Config;
 use Rafapaulino\Omiephpsdk\PaymentMethods\Contracts\PaymentMethodServiceInterface;
 use RuntimeException;
 
@@ -17,13 +17,13 @@ final class OmiePaymentMethodService implements PaymentMethodServiceInterface
     /** @var array<string, mixed> */
     private array $config;
 
-    public function __construct(?ClientInterface $httpClient = null)
+    public function __construct(?ClientInterface $httpClient = null, ?array $config = null)
     {
-        $this->config = ConfigSingleton::getInstance()->getConfig();
+        $this->config = Config::resolve($config);
 
         $this->httpClient = $httpClient ?? new Client([
             'base_uri' => rtrim((string) ($this->config['omie_api'] ?? ''), '/') . '/',
-            'timeout' => 30,
+            'timeout' => (int) ($this->config['timeout'] ?? 30),
         ]);
     }
 

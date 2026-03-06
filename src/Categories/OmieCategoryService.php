@@ -7,7 +7,7 @@ namespace Rafapaulino\Omiephpsdk\Categories;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Rafapaulino\Omiephpsdk\Categories\Contracts\CategoryServiceInterface;
-use Rafapaulino\Omiephpsdk\Config\ConfigSingleton;
+use Rafapaulino\Omiephpsdk\Config\Config;
 use RuntimeException;
 
 
@@ -18,13 +18,13 @@ final class OmieCategoryService implements CategoryServiceInterface
     /** @var array<string, mixed> */
     private array $config;
 
-    public function __construct(?ClientInterface $httpClient = null)
+    public function __construct(?ClientInterface $httpClient = null, ?array $config = null)
     {
-        $this->config = ConfigSingleton::getInstance()->getConfig();
+        $this->config = Config::resolve($config);
 
         $this->httpClient = $httpClient ?? new Client([
             'base_uri' => rtrim((string) ($this->config['omie_api'] ?? ''), '/') . '/',
-            'timeout' => 30,
+            'timeout' => (int) ($this->config['timeout'] ?? 30),
         ]);
     }
 
