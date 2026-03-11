@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $parent_dir = dirname(__DIR__, 1);
 
@@ -10,10 +10,7 @@ $service = new OmieCategoryService();
 
 $categories = $service->listCategories([
     'pagina' => 1,
-    'registros_por_pagina' => 50,
+    'registros_por_pagina' => 100,
 ]);
 
 var_dump($categories);
-
-
-

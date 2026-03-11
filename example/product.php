@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $parent_dir = dirname(__DIR__, 1);
 
@@ -8,7 +8,9 @@ use Rafapaulino\Omiephpsdk\Products\OmieProductService;
 
 $service = new OmieProductService();
 
-$products = $service->listProducts();
+$products = $service->listProducts(array(
+    'pagina' => 1,
+    'registros_por_pagina' => 100
+));
 
 var_dump($products);
-

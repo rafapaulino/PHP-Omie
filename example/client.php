@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $parent_dir = dirname(__DIR__, 1);
 
@@ -12,6 +12,7 @@ $service = new OmieClientService();
 $clients = $service->listClients();
 var_dump($clients);
 
+/*
 // Pegar os dados de um cliente
 $client = $service->getClient(11118162834);
 var_dump($client);
@@ -35,4 +36,4 @@ var_dump($update_client);
 // Excluir cliente
 $delete_client = $service->deleteClient(11119174794);
 var_dump($delete_client);
-
+*/
