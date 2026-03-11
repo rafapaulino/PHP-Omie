@@ -25,6 +25,8 @@ use Rafapaulino\Omiephpsdk\Sellers\Contracts\SellerServiceInterface;
 use Rafapaulino\Omiephpsdk\Sellers\OmieSellerService;
 use Rafapaulino\Omiephpsdk\SimpleSale\Contracts\SimpleSaleServiceInterface;
 use Rafapaulino\Omiephpsdk\SimpleSale\OmieSimpleSaleService;
+use Rafapaulino\Omiephpsdk\ServiceOrders\Contracts\ServiceOrderServiceInterface;
+use Rafapaulino\Omiephpsdk\ServiceOrders\OmieServiceOrderService;
 use Rafapaulino\Omiephpsdk\Services\Contracts\ServiceServiceInterface;
 use Rafapaulino\Omiephpsdk\Services\OmieServiceService;
 use Rafapaulino\Omiephpsdk\Users\Contracts\UserServiceInterface;
@@ -45,6 +47,7 @@ final class OmieServiceProvider extends ServiceProvider
         $this->registerService(ProductServiceInterface::class, OmieProductService::class);
         $this->registerService(SellerServiceInterface::class, OmieSellerService::class);
         $this->registerService(SimpleSaleServiceInterface::class, OmieSimpleSaleService::class);
+        $this->registerService(ServiceOrderServiceInterface::class, OmieServiceOrderService::class);
         $this->registerService(ServiceServiceInterface::class, OmieServiceService::class);
         $this->registerService(UserServiceInterface::class, OmieUserService::class);
     }
