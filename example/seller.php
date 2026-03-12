@@ -49,17 +49,14 @@ $nomeAleatorio = $nomes[array_rand($nomes)];
 $sobrenomeAleatorio = $sobrenomes[array_rand($sobrenomes)];
 
 $nomeCompleto = $nomeAleatorio . " " . $sobrenomeAleatorio;
-
-$seller = $service->createSeller(array(
-    'codInt' => time(),
-    'nome' => $nomeCompleto,
-    'inativo' => 'N',
-    'email' => 'fulano.' . time() . '@minhaempresa.com.br',
-    'fatura_pedido' => 'S',
-    'visualiza_pedido' => 'N',
-    'comissao' => rand(5, 30)
-));
-var_dump($seller);
+/* $seller = $service->createSeller(array(
+ 'codInt' => time(),
+ 'nome' => $nomeCompleto,
+ 'inativo' => 'N',
+ 'email' => 'fulano.' . time() . '@minhaempresa.com.br',
+ 'fatura_pedido' => 'S',
+ 'visualiza_pedido' => 'N',
+ 'comissao' => rand(5, 30) )); var_dump($seller); */
 
 //lista todos os vendedores
 $sellers = $service->listSellers([

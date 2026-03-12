@@ -1,4 +1,4 @@
-﻿# Biblioteca de Integração com a Omie
+# Biblioteca de Integração com a Omie
 
 A url para realizar os testes na api da Omie é essa:
 [https://app.omie.com.br/developer/](https://app.omie.com.br/developer/)
@@ -438,6 +438,156 @@ $paymentMethods = $service->listPaymentMethods([
 Por padrão, o método envia:
 - `pagina = 1`
 - `registros_por_pagina = 50`
+
+Você pode sobrescrever esses valores passando o array `$filters`.
+
+## Service de Etapas de Faturamento (`OmieBillingStepService`)
+
+A implementação atual do serviço de etapas de faturamento está em `src/BillingSteps/OmieBillingStepService.php`.
+
+Métodos já implementados:
+- `listBillingSteps(array $filters = []): array`
+
+### Exemplo de uso
+
+```php
+<?php
+
+use Rafapaulino\Omiephpsdk\BillingSteps\OmieBillingStepService;
+
+$service = new OmieBillingStepService();
+
+// Lista etapas de faturamento (call: ListarEtapasFaturamento)
+$billingSteps = $service->listBillingSteps([
+    'pagina' => 1,
+    'registros_por_pagina' => 20,
+]);
+```
+
+### Filtros do `listBillingSteps`
+
+Por padrão, o método envia:
+- `pagina = 1`
+- `registros_por_pagina = 20`
+
+Você pode sobrescrever esses valores passando o array `$filters`.
+
+## Service de Ordens de Serviço (`OmieServiceOrderService`)
+
+A implementação atual do serviço de ordens de serviço está em `src/ServiceOrders/OmieServiceOrderService.php`.
+
+Métodos já implementados:
+- `createServiceOrder(array $payload): array`
+
+### Exemplo de uso
+
+```php
+<?php
+
+use Rafapaulino\Omiephpsdk\ServiceOrders\OmieServiceOrderService;
+
+$service = new OmieServiceOrderService();
+
+// Cria uma ordem de serviço
+$os = $service->createServiceOrder([
+    'Cabecalho' => [
+        'cCodIntOS' => '12345',
+        'cCodParc' => '999',
+        'cEtapa' => '10',
+        'dDtPrevisao' => '10/10/2030',
+        'nCodCli' => 123456789,
+        'nQtdeParc' => 1,
+    ],
+    // Outros itens do payload...
+]);
+```
+
+## Service de Serviços (`OmieServiceService`)
+
+A implementação atual do serviço de serviços (cadastro de serviços) está em `src/Services/OmieServiceService.php`.
+
+Métodos já implementados:
+- `listServices(array $filters = []): array`
+
+### Exemplo de uso
+
+```php
+<?php
+
+use Rafapaulino\Omiephpsdk\Services\OmieServiceService;
+
+$service = new OmieServiceService();
+
+// Lista serviços (call: ListarCadastroServico)
+$services = $service->listServices([
+    'nPagina' => 1,
+    'nRegPorPagina' => 100,
+]);
+```
+
+### Filtros do `listServices`
+
+Por padrão, o método envia:
+- `nPagina = 1`
+- `nRegPorPagina = 100`
+
+Você pode sobrescrever esses valores passando o array `$filters`.
+
+## Service de Venda Simples (`OmieSimpleSaleService`)
+
+A implementação atual do serviço de venda simples está em `src/SimpleSale/OmieSimpleSaleService.php`.
+
+Métodos já implementados:
+- `addOrder(array $payload): array`
+- `listOrders(array $filters = []): array`
+- `addObs(array $payload): array`
+
+### Exemplo de uso
+
+```php
+<?php
+
+use Rafapaulino\Omiephpsdk\SimpleSale\OmieSimpleSaleService;
+
+$service = new OmieSimpleSaleService();
+
+// Cria um pedido de venda simples (call: AdicionarPedido)
+$sale = $service->addOrder([
+    'codigo_pedido_integracao' => '12345',
+    'codigo_cliente' => 123456,
+    'codigo_cenario_impostos' => 0,
+    'codigo_categoria' => '1.01.01',
+    'codigo_conta_corrente' => 123456,
+    'itens' => [
+        [
+            'codigo_produto' => 654321,
+            'quantidade' => 1,
+            'valor_unitario' => 0,
+            'cfop' => "1.102",
+            'codigo_cenario_impostos_item' => 0,
+        ],
+    ],
+]);
+
+// Adiciona observação no pedido faturado (call: AlterarPedFaturado)
+$saleObs = $service->addObs([
+    'codigo_pedido' => $sale['codigo_pedido'],
+    'obs_venda' => 'Comentário via API',
+]);
+
+// Lista pedidos (call: ListarPedidos)
+$orders = $service->listOrders([
+    'pagina' => 1,
+    'registros_por_pagina' => 100,
+]);
+```
+
+### Filtros do `listOrders`
+
+Por padrão, o método envia:
+- `pagina = 1`
+- `registros_por_pagina = 100`
+- `apenas_importado_api = 'N'`
 
 Você pode sobrescrever esses valores passando o array `$filters`.
 
